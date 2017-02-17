@@ -1,6 +1,8 @@
 # TimeLineSample
 RecyclerView based Timeline for android 
 
+![alt tag](https://github.com/ivanfenenko/TimeLineSample/blob/master/photo_2017-02-17_16-42-28.jpg)
+
 How to use?
 
 1. Add view to your layout file
