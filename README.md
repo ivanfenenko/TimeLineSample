@@ -7,7 +7,7 @@ How to use?
 
 1. Add view to your layout file
 
-```
+``` xml
 <me.ivanfenenko.timeline.TimeLineView
         android:id="@+id/timeLineView"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@ How to use?
 
 2. Create an adapter which extends `TimeLineAdapter` 
 
-```
+``` java
 public class SampleListAdapter extends TimeLineAdapter {
 
     @Override
@@ -49,7 +49,7 @@ public class SampleListAdapter extends TimeLineAdapter {
 
 `color` property in TimelineItem defines the color of timeline indicator
 
-```
+``` java
 TimeLineView timeLineView = (TimeLineView) findViewById(R.id.timeLineView);
 
 timeLineView.setAdapter(new SampleListAdapter());
