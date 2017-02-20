@@ -1,7 +1,7 @@
 # TimeLineSample
 RecyclerView based Timeline for android 
 
-<img src="https://github.com/ivanfenenko/TimeLineSample/blob/master/photo_2017-02-17_16-42-28.jpg" width="200">
+<img src="https://github.com/ivanfenenko/TimeLineSample/blob/master/screenshots/sample.jpg" width="200">
 
 How to use?
 
