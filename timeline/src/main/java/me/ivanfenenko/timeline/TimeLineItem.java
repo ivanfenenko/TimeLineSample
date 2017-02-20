@@ -8,7 +8,7 @@ import android.graphics.Color;
 
 public class TimeLineItem {
 
-    public int color;
+    public int color = Color.GRAY;
 
     public TimeLineItem() {}
 

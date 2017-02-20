@@ -1,6 +1,13 @@
 package me.ivanfenenko.timeline;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +24,6 @@ import java.util.List;
  */
 
 public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ViewHolder> {
-
-    private int childLayoutId = -1;
 
     protected List<TimeLineItem> list = new ArrayList<>();
 
@@ -57,22 +62,83 @@ public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapt
     @Override
     public void onBindViewHolder(TimeLineAdapter.ViewHolder holder, int position) {
         TimeLineItem item = list.get(position);
+
+        Resources r = holder.itemView.getContext().getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, r.getDisplayMetrics());
+
+        holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width = (int) px;
+        int height = holder.itemView.getMeasuredHeight();
+
+        Log.d("TimeLine w h: ", String.valueOf(width) + " " +
+                String.valueOf(height));
+
+        Bitmap bitmap = Bitmap.createBitmap(
+                width, // Width
+                height, // Height
+                Bitmap.Config.ARGB_8888 // Config
+        );
+
+        // Initialize a new Canvas instance
+        Canvas canvas = new Canvas(bitmap);
+
+        // Initialize a new Paint instance to draw the Rectangle
+        Paint rectStartColor = new Paint();
+        rectStartColor.setStyle(Paint.Style.FILL);
+        rectStartColor.setColor(item.color);
+        rectStartColor.setAntiAlias(true);
+
+        Paint rectEndColor = new Paint();
+        rectEndColor.setStyle(Paint.Style.FILL);
+        rectEndColor.setColor(getStripColor(position));
+        rectEndColor.setAntiAlias(true);
+
+        Paint dotColor = new Paint();
+        dotColor.setStyle(Paint.Style.FILL);
+        dotColor.setColor(item.color);
+        dotColor.setAntiAlias(true);
+
+        boolean noStart = getItemCount() == 1;
+        boolean noTail = getItemCount() == 1;
+
         if (position == 0) {
-            holder.leftDrawable.setImageDrawable(
-                    holder.itemView.getContext().getResources().getDrawable(R.drawable.ic_tl_top)
-            );
-            holder.leftDrawable.setColorFilter(item.color);
+            noStart = true;
         } else if (position == getItemCount() - 1) {
-            holder.leftDrawable.setImageDrawable(
-                    holder.itemView.getContext().getResources().getDrawable(R.drawable.ic_tl_bottom)
-            );
-            holder.leftDrawable.setColorFilter(item.color);
-        } else {
-            holder.leftDrawable.setImageDrawable(
-                    holder.itemView.getContext().getResources().getDrawable(R.drawable.ic_tl_middle)
-            );
-            holder.leftDrawable.setColorFilter(item.color);
+            noTail = true;
         }
+
+        int rWidth = canvas.getWidth();
+        int rHeight = canvas.getHeight();
+
+        int lineEnd= (canvas.getWidth()/4)*3;
+
+        if ((((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)) < rWidth) {
+            lineEnd = lineEnd + (rWidth - (((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)));
+        }
+
+        Rect rectangleTop = new Rect(
+                rWidth/4, // Left
+                0, // Top
+                lineEnd, // Right
+                rHeight/2// Bottom
+        );
+
+        Rect rectangleBottom = new Rect(
+                rWidth/4, // Left
+                rHeight/2, // Top
+                lineEnd, // Right
+                rHeight// Bottom
+        );
+
+        int rad = width / 2;
+
+        if (!noStart) canvas.drawRect(rectangleTop, rectStartColor);
+        if (!noTail) canvas.drawRect(rectangleBottom, rectEndColor);
+
+        canvas.drawCircle(width/2, height/2, rad, dotColor);
+
+        // Display the newly created bitmap on app interface
+        holder.leftDrawable.setImageBitmap(bitmap);
     }
 
     @Override
@@ -89,4 +155,12 @@ public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapt
             leftDrawable = (ImageView) itemView.findViewById(R.id.leftDrawable);
         }
     }
+
+    protected int getStripColor(int position) {
+        try {
+            return list.get(position + 1).color;
+        } catch (Exception ex) {}
+        return list.get(position).color;
+    }
+
 }

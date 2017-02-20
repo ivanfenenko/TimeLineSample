@@ -10,7 +10,7 @@ import me.ivanfenenko.timeline.TimeLineAdapter;
  * Created by klickrent on 17/02/2017.
  */
 
-public class DatesListAdapter extends TimeLineAdapter {
+public class SampleListAdapter extends TimeLineAdapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

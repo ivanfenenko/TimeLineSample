@@ -14,12 +14,16 @@ public class MainActivity extends AppCompatActivity {
 
         TimeLineView timeLineView = (TimeLineView) findViewById(R.id.timeLineView);
 
-        timeLineView.setAdapter(new DatesListAdapter());
+        timeLineView.setAdapter(new SampleListAdapter());
 
-        timeLineView.addItem(new ListItem("#FF2FD700"));
-        timeLineView.addItem(new ListItem("#FF2FD700"));
-        timeLineView.addItem(new ListItem("#FF2FD700"));
-        timeLineView.addItem(new ListItem("#FFD70700"));
-        timeLineView.addItem(new ListItem("#FFD70700"));
+        timeLineView.addItem(new ListItem("#FF2FD700", "succeeded"));
+        timeLineView.addItem(new ListItem("#FF2FD700", "succeeded"));
+        timeLineView.addItem(new ListItem("#FF2FD700", "succeeded"));
+        timeLineView.addItem(new ListItem("#FF2FD700", "succeeded"));
+        timeLineView.addItem(new ListItem("#FF2FD700", "succeeded"));
+        timeLineView.addItem(new ListItem("#FFD70700", "failed"));
+        timeLineView.addItem(new ListItem("#FFBCBCBC", "hasn't happened"));
+        timeLineView.addItem(new ListItem("#FFBCBCBC", "hasn't happened"));
+        timeLineView.addItem(new ListItem("#FFBCBCBC", "hasn't happened"));
     }
 }

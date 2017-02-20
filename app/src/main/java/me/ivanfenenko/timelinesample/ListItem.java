@@ -10,9 +10,9 @@ public class ListItem extends TimeLineItem {
 
     public String text;
 
-    public ListItem(String color) {
+    public ListItem(String color, String text) {
         super(color);
-        text = color;
+        this.text = text;
     }
 
 }

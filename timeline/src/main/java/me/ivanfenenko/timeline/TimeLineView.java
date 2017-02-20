@@ -30,6 +30,7 @@ public class TimeLineView extends RecyclerView {
     }
 
     public void init() {
+        setOverScrollMode(OVER_SCROLL_NEVER);
         setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getContext()));
     }
