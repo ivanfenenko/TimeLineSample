@@ -5,7 +5,7 @@ RecyclerView based Timeline for android
 
 How to use?
 
-1. Add view to your layout file
+### Add view to your layout file
 
 ``` xml
 <me.ivanfenenko.timeline.TimeLineView
@@ -14,7 +14,7 @@ How to use?
         android:layout_height="wrap_content"/>
 ```
 
-2. Adjust size of dot and line 
+### Adjust size of dot and line 
 
 Defaults are:
 ```
@@ -22,7 +22,7 @@ Defaults are:
         app:lineWidth="4dp"
 ```
 
-3. Create an adapter which extends `TimeLineAdapter` 
+#### Create an adapter which extends `TimeLineAdapter` 
 
 ``` java
 public class SampleListAdapter extends TimeLineAdapter {
@@ -53,7 +53,7 @@ public class SampleListAdapter extends TimeLineAdapter {
 }
 ```
 
-4. Add set adapter to TimelineView and add your objects to the view 
+### Add set adapter to TimelineView and add your objects to the view 
 
 `color` property in TimelineItem defines the color of timeline indicator
 
