@@ -1,13 +1,11 @@
 package me.ivanfenenko.timeline;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,18 @@ import java.util.List;
 
 public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ViewHolder> {
 
+    private int dotRadius;
+    private int lineWidth;
+
     protected List<TimeLineItem> list = new ArrayList<>();
+
+    public void setDotRadius(int rad) {
+        this.dotRadius = rad;
+    }
+
+    public void setLineWidth(int width) {
+        this.lineWidth = width;
+    }
 
     public List<TimeLineItem> getList() {
         return list;
@@ -63,11 +72,9 @@ public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapt
     public void onBindViewHolder(TimeLineAdapter.ViewHolder holder, int position) {
         TimeLineItem item = list.get(position);
 
-        Resources r = holder.itemView.getContext().getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, r.getDisplayMetrics());
-
         holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int width = (int) px;
+
+        int width = Math.max(dotRadius*2, lineWidth);
         int height = holder.itemView.getMeasuredHeight();
 
         Log.d("TimeLine w h: ", String.valueOf(width) + " " +
@@ -107,27 +114,25 @@ public abstract class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapt
             noTail = true;
         }
 
-        int rWidth = canvas.getWidth();
-        int rHeight = canvas.getHeight();
+        int lineLeft = (width - lineWidth) / 2;
+        int lineRight = lineLeft + lineWidth;
 
-        int lineEnd= (canvas.getWidth()/4)*3;
-
-        if ((((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)) < rWidth) {
-            lineEnd = lineEnd + (rWidth - (((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)));
-        }
+//        if ((((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)) < rWidth) {
+//            lineEnd = lineEnd + (rWidth - (((int ) (canvas.getWidth()/4)*3) + ((int) rWidth/4)));
+//        }
 
         Rect rectangleTop = new Rect(
-                rWidth/4, // Left
+                lineLeft, // Left
                 0, // Top
-                lineEnd, // Right
-                rHeight/2// Bottom
+                lineRight, // Right
+                height/2// Bottom
         );
 
         Rect rectangleBottom = new Rect(
-                rWidth/4, // Left
-                rHeight/2, // Top
-                lineEnd, // Right
-                rHeight// Bottom
+                lineLeft, // Left
+                height/2, // Top
+                lineRight, // Right
+                height// Bottom
         );
 
         int rad = width / 2;

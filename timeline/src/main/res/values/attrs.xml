@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimeLineView">
+        <attr name="dotRadius" format="dimension" />
+        <attr name="lineWidth" format="dimension" />
+    </declare-styleable>
+</resources>
